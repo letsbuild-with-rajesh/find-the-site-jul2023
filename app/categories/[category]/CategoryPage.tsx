@@ -1,14 +1,9 @@
 'use client'
 import Link from "next/link";
+import { ISiteData } from "@/app/types";
+import SiteCard from "@/app/components/SiteCard";
 
-type SiteData = {
-  API: string,
-  Description: string,
-  Link: string,
-  Category: string
-}
-
-export default function CategoryPage({ category, data }: { category: string | undefined, data: Array<SiteData> }) {
+export default function CategoryPage({ category, data }: { category: string | undefined, data: Array<ISiteData> }) {
   return (
     <div className="container-fluid min-vh-100">
       <nav aria-label="breadcrumb">
@@ -25,18 +20,7 @@ export default function CategoryPage({ category, data }: { category: string | un
           text-justify: inter-word;
         }
       `}</style>
-        {
-          data.map((site) => {
-            return (
-              <div key={site.API} style={{ maxWidth: '320px' }} className="card">
-                <div className="card-body d-flex flex-column gap-2 pt-1">
-                  <Link href={site.Link} target="_blank" style={{ color: 'darkturquoise' }} className="card-link text-center fs-4">{site.API}</Link>
-                  <div style={{ color: 'deeppink' }} className="description text-justify">{site.Description}</div>
-                </div>
-              </div>
-            )
-          })
-        }
+        {data.map((site) => <SiteCard key={site.API} data={site} />)}
       </div>
     </div >
   )
