@@ -4,3 +4,7 @@ export interface ISiteData {
 	Link: string,
 	Category: string
 }
+
+export interface IMySpaceSiteResponseData {
+	details: ISiteData
+}

@@ -5,7 +5,7 @@ import { ISiteData } from "@/app/types";
 import Loader from "@/app/components/Loader";
 import SiteCard from "@/app/components/SiteCard";
 
-export default function HomePage() {
+export default function HomePage({ mySpaceSites }: { mySpaceSites: Array<string> }) {
   const [randomSiteDetails, setRandomSiteDetails] = useState<{ loading: boolean, data: ISiteData }>({
     loading: false,
     data: { API: '', Description: '', Link: '', Category: '' }
@@ -27,7 +27,7 @@ export default function HomePage() {
           <button className="nav-link active" onClick={getRandomSite}>Get a random site</button>
         </li>
         <li className="nav-item">
-          <a className="nav-link active" href="#">My Space</a>
+          <a className="nav-link active" href="/myspace">My Space</a>
         </li>
         <li className="nav-item">
           <Link className="nav-link active" href="/categories">Categories</Link>
@@ -38,7 +38,7 @@ export default function HomePage() {
           ? <div className="m-4"><Loader containerHeightStyle="h-100" /></div>
           : randomSiteDetails.data.API && (
             <div className="d-flex justify-content-center m-4">
-              <SiteCard data={randomSiteDetails.data} />
+              <SiteCard data={randomSiteDetails.data} isMySpaceSite={mySpaceSites.includes(randomSiteDetails.data.Link)} />
             </div>
           )
         }

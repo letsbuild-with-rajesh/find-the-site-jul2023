@@ -1,4 +1,5 @@
 import CategoryPage from "./CategoryPage";
+import { getMySpaceSitesArray } from "@/app/utils/utils";
 
 async function getSites(category: string | undefined) {
   const res = await fetch(
@@ -15,9 +16,10 @@ export default async function Category({
   params: { category: string | undefined };
 }) {
   const sitesData = await getSites(category);
+  const mySpaceSites = await getMySpaceSitesArray();
   return (
     <main>
-      <CategoryPage category={category} data={sitesData} />
+      <CategoryPage category={category} data={sitesData} mySpaceSites={mySpaceSites} />
     </main>
   );
 }
