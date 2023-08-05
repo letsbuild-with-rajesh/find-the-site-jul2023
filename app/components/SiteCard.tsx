@@ -1,36 +1,14 @@
 'use client'
 import Link from "next/link";
 import { ISiteData } from "@/app/types";
+import { addSiteToMySpace, removeSiteFromMySpace } from '@/app/utils/client-utils';
 
-export default function SiteCard({ data, isMySpaceSite }: { data: ISiteData, isMySpaceSite: boolean }) {
+export default function SiteCard({
+  data, isMySpaceSite, syncWithMySpace = () => undefined
+}: {
+  data: ISiteData, isMySpaceSite: boolean, syncWithMySpace: () => void
+}) {
   const { API, Link: SiteLink, Description } = data;
-  const addSiteToMySpace = async () => {
-    const res = await fetch("/api/site", {
-      method: "POST",
-      body: JSON.stringify({ ...data }),
-      headers: { "content-type": "application/json" },
-    });
-
-    if (!res.ok) {
-      console.error(res)
-      return;
-    }
-    window.location.reload();
-  }
-
-  const removeSiteFromMySpace = async () => {
-    const res = await fetch("/api/site", {
-      method: "DELETE",
-      body: JSON.stringify({ domain: SiteLink }),
-      headers: { "content-type": "application/json" },
-    });
-
-    if (!res.ok) {
-      console.error(res)
-      return;
-    }
-    window.location.reload();
-  }
 
   return (
     <>
@@ -56,14 +34,14 @@ export default function SiteCard({ data, isMySpaceSite }: { data: ISiteData, isM
               ? <span
                 role="button"
                 className="h4 m-0 d-flex align-items-center text-danger"
-                onClick={removeSiteFromMySpace}
+                onClick={() => removeSiteFromMySpace(SiteLink, syncWithMySpace)}
               >
                 &#10084;
               </span>
               : <span
                 role="button"
                 className="h2 m-0 d-flex align-items-center"
-                onClick={addSiteToMySpace}
+                onClick={() => addSiteToMySpace(data, syncWithMySpace)}
               >
                 &#9825;
               </span>

@@ -7,7 +7,7 @@ export async function GET() {
     const result = await conn.query(query);
     return NextResponse.json({ data: result.rows });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -15,12 +15,12 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { Link } = body;
-    const query = 'INSERT INTO SITES (DOMAIN, DETAILS) VALUES ($1, $2)';
+    const query = 'INSERT INTO SITES (DOMAIN, DETAILS) VALUES ($1, $2) ON CONFLICT (DOMAIN) DO NOTHING';
     const values = [Link, body];
     await conn.query(query, values);
     return NextResponse.json({ result: "success" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -33,6 +33,6 @@ export async function DELETE(req: NextRequest) {
     await conn.query(query, values);
     return NextResponse.json({ result: "success" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

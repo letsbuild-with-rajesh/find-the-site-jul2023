@@ -1,5 +1,5 @@
 import HomePage from "./HomePage";
-import { getMySpaceSitesArray } from "@/app/utils/utils";
+import { getMySpaceSitesArray } from "@/app/utils/server-utils";
 
 export default async function Home() {
   const mySpaceSites = await getMySpaceSitesArray();

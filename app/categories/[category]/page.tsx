@@ -1,5 +1,5 @@
 import CategoryPage from "./CategoryPage";
-import { getMySpaceSitesArray } from "@/app/utils/utils";
+import { getMySpaceSitesArray } from "@/app/utils/server-utils";
 
 async function getSites(category: string | undefined) {
   const res = await fetch(

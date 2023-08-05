@@ -1,12 +1,21 @@
 'use client'
+import { useState } from 'react';
 import { ISiteData } from "@/app/types";
 import SiteCard from "@/app/components/SiteCard";
+import { getLatestMySpaceSitesList } from '@/app/utils/client-utils';
 
 export default function CategoryPage({
   category, data, mySpaceSites,
 }: {
   category: string | undefined, data: Array<ISiteData>, mySpaceSites: Array<string>
 }) {
+  const [mySpaceSitesList, setMySpaceSitesList] = useState<Array<string>>(mySpaceSites);
+
+  const syncWithMySpace = async () => {
+    const latestMySpaceSitesList = await getLatestMySpaceSitesList();
+    setMySpaceSitesList(latestMySpaceSitesList);
+  };
+
   return (
     <div className="container-fluid min-vh-100">
       <nav aria-label="breadcrumb">
@@ -23,8 +32,14 @@ export default function CategoryPage({
           text-justify: inter-word;
         }
       `}</style>
-        {data.map((site) => <SiteCard key={site.API} data={site} isMySpaceSite={mySpaceSites.includes(site.Link)} />)}
+        {data.map((site) => (
+          <SiteCard
+            key={site.API}
+            data={site}
+            isMySpaceSite={mySpaceSitesList.includes(site.Link)}
+            syncWithMySpace={syncWithMySpace}
+          />))}
       </div>
-    </div >
+    </div>
   )
 }

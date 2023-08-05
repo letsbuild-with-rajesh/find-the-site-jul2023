@@ -1,8 +1,17 @@
 'use client'
+import { useState } from 'react';
 import { ISiteData } from "@/app/types";
 import SiteCard from "@/app/components/SiteCard";
+import { getLatestMySpaceSites } from '@/app/utils/client-utils';
 
 export default function MySpacePage({ data }: { data: Array<ISiteData> }) {
+  const [sitesData, setSitesData] = useState<Array<ISiteData>>(data);
+
+  const syncWithMySpace = async () => {
+    const latestSitesData = await getLatestMySpaceSites();
+    setSitesData(latestSitesData);
+  };
+
   return (
     <div className="container-fluid min-vh-100">
       <nav aria-label="breadcrumb">
@@ -18,7 +27,7 @@ export default function MySpacePage({ data }: { data: Array<ISiteData> }) {
           text-justify: inter-word;
         }
       `}</style>
-        {data.map((site) => <SiteCard key={site.API} data={site} isMySpaceSite={true} />)}
+        {sitesData.map((site) => <SiteCard key={site.API} data={site} isMySpaceSite={true} syncWithMySpace={syncWithMySpace} />)}
       </div>
     </div >
   )
