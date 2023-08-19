@@ -1,0 +1,21 @@
+version: '3'
+services:
+  nextjs_app:
+    build:
+      context: ./
+      dockerfile: ./builds/docker/nextjs_app/Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - /app/.next
+    depends_on:
+      - postgres
+  postgres:
+    build:
+      context: ./
+      dockerfile: ./builds/docker/postgres/Dockerfile
+    ports:
+      - 5432:5432
+    volumes:
+      - /data/db

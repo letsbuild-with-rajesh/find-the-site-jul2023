@@ -8,3 +8,5 @@ export async function GET() {
 	const data = await res.json();
 	return NextResponse.json({ data: data.entries[0] });
 }
+
+export const dynamic = 'force-dynamic';

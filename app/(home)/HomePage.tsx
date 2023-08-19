@@ -98,6 +98,7 @@ export default function HomePage({ mySpaceSites }: { mySpaceSites: Array<string>
         <div className="d-flex flex-wrap justify-content-center gap-3 m-4">
           {searchResultsDetails.data.map((site: ISiteData) => {
             return <SiteCard
+              key={site.Link}
               data={site}
               isMySpaceSite={mySpaceSitesList.includes(site.Link)}
               syncWithMySpace={syncWithMySpace}
