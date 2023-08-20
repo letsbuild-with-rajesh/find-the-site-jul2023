@@ -22,7 +22,7 @@ This project is only for learning purposes and made use of publicly available da
 <details><summary>Click to show/hide a demo gif</summary>
 <p>
 
-![Loading demo gif ...](https://github.com/letsbuild-with-rajesh/find-the-site-jul2023/blob/main/public/demo.gif?raw=true)
+![Loading demo gif ...](public/demo.gif?raw=true)
 
 </p>
 </details>
